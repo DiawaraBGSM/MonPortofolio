@@ -194,6 +194,15 @@ html {
   padding: 8px;
 }
 
+/* Hide the hamburger while drawer is open to avoid duplicate close buttons */
+.nav-toggle.open {
+  display: none;
+}
+
+.nav-close {
+  display: none;
+}
+
 .nav-overlay {
   display: none;
   position: fixed;
@@ -1148,6 +1157,7 @@ footer p {
   }
 
   .nav-close {
+    display: block;
     position: absolute;
     top: 14px;
     right: 14px;
