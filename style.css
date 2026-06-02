@@ -209,6 +209,11 @@ html {
   opacity: 1;
 }
 
+/* Ensure overlay is below drawer but above page content */
+.nav-links.open ~ .nav-overlay {
+  z-index: 1000;
+}
+
 .nav-links a:hover {
   color: var(--blue-main);
 }
@@ -1088,29 +1093,34 @@ footer p {
     border: 1px solid rgba(29,106,229,0.15);
   }
 
+  /* Mobile drawer: slide-in from right with full-height overlay */
+  .nav-toggle {
+    z-index: 1002;
+    font-size: 20px;
+    padding: 12px;
+  }
+
   .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 24px;
-    right: 24px;
+    position: fixed;
+    top: 0;
+    right: -320px;
+    height: 100vh;
+    width: 300px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 0;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    background: rgba(255,255,255,0.96);
-    border-radius: 16px;
-    border: 1px solid rgba(29,106,229,0.14);
-    box-shadow: 0 14px 34px rgba(0,0,0,0.08);
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    z-index: 998;
+    padding: 32px 18px;
+    overflow-y: auto;
+    background: #ffffff;
+    border-left: 1px solid rgba(29,106,229,0.06);
+    box-shadow: -12px 0 40px rgba(20,40,80,0.12);
+    transition: right 0.36s cubic-bezier(.2,.9,.2,1);
+    z-index: 1001;
   }
 
   .nav-links.open {
-    max-height: 320px;
-    padding: 14px 0;
+    right: 0;
   }
 
   .nav-links li {
@@ -1119,9 +1129,18 @@ footer p {
 
   .nav-links a {
     width: 100%;
-    padding: 14px 20px;
+    padding: 18px 16px;
     color: var(--blue-dark);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 8px;
+    transition: background 0.18s, color 0.18s;
+  }
+
+  .nav-links a:hover {
+    background: rgba(29,106,229,0.06);
+    color: var(--blue-main);
   }
 
   .nav-links a::after {
@@ -1192,39 +1211,7 @@ footer p {
     padding: 14px 20px;
   }
 
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    background: rgba(255,255,255,0.96);
-    border-radius: 16px;
-    border: 1px solid rgba(29,106,229,0.14);
-    transition: max-height 0.4s ease, padding 0.4s ease;
-  }
-
-  .nav-links.open {
-    max-height: 340px;
-    padding: 14px 0;
-  }
-
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links a {
-    width: 100%;
-    padding: 14px 20px;
-    color: var(--blue-dark);
-    font-weight: 600;
-  }
+  /* keep drawer behavior from larger mobile breakpoint */
 
   .nav-links a::after {
     display: none;
