@@ -186,6 +186,29 @@ html {
   outline-offset: 3px;
 }
 
+/* Hamburger active state and overlay */
+.nav-toggle.open {
+  background: var(--blue-main);
+  color: var(--white);
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 995;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-links.open ~ .nav-overlay {
+  display: block;
+  opacity: 1;
+}
+
 .nav-links a:hover {
   color: var(--blue-main);
 }

@@ -46,17 +46,49 @@ const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-links a");
 const navToggle = document.querySelector(".nav-toggle");
 const navLinksList = document.querySelector(".nav-links");
+const navOverlay = document.querySelector('.nav-overlay');
 
 if (navToggle && navLinksList) {
+  navToggle.setAttribute('aria-expanded', 'false');
   navToggle.addEventListener("click", () => {
-    navLinksList.classList.toggle("open");
+    const isOpen = navLinksList.classList.toggle("open");
+    // toggle icon classes (FontAwesome)
+    const icon = navToggle.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-bars', !isOpen);
+      icon.classList.toggle('fa-times', isOpen);
+    }
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
+  // Close menu when clicking a link
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       navLinksList.classList.remove("open");
+      navToggle.classList.remove('open');
+      const icon = navToggle.querySelector('i');
+      if (icon) {
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      }
+      navToggle.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // Close when clicking overlay
+  if (navOverlay) {
+    navOverlay.addEventListener('click', () => {
+      navLinksList.classList.remove('open');
+      navToggle.classList.remove('open');
+      const icon = navToggle.querySelector('i');
+      if (icon) {
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      }
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  }
 }
 
 window.addEventListener("scroll", () => {
@@ -115,11 +147,7 @@ if (form) {
   });
 }
 
-const qrCodeImg = document.getElementById("qr-code-img");
-if (qrCodeImg) {
-  const currentUrl = window.location.href;
-  qrCodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(currentUrl)}`;
-}
+// QR code generation removed (we provide a downloadable PNG image instead)
 
 
 // ============================
