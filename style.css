@@ -1100,10 +1100,11 @@ footer p {
     padding: 12px;
   }
 
+
   .nav-links {
     position: fixed;
     top: 0;
-    right: -320px;
+    left: 0;
     height: 100vh;
     width: 300px;
     display: flex;
@@ -1113,14 +1114,17 @@ footer p {
     padding: 32px 18px;
     overflow-y: auto;
     background: #ffffff;
-    border-left: 1px solid rgba(29,106,229,0.06);
-    box-shadow: -12px 0 40px rgba(20,40,80,0.12);
-    transition: right 0.36s cubic-bezier(.2,.9,.2,1);
+    border-right: 1px solid rgba(29,106,229,0.06);
+    box-shadow: 12px 0 40px rgba(20,40,80,0.12);
+    transform: translateX(-110%);
+    opacity: 0;
+    transition: transform 0.36s cubic-bezier(.2,.9,.2,1), opacity 0.28s ease;
     z-index: 1001;
   }
 
   .nav-links.open {
-    right: 0;
+    transform: translateX(0);
+    opacity: 1;
   }
 
   .nav-links li {
@@ -1141,6 +1145,24 @@ footer p {
   .nav-links a:hover {
     background: rgba(29,106,229,0.06);
     color: var(--blue-main);
+  }
+
+  .nav-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: var(--blue-dark);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .nav-close:focus {
+    outline: 2px solid var(--blue-main);
+    outline-offset: 2px;
   }
 
   .nav-links a::after {

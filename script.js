@@ -47,6 +47,7 @@ const navLinks = document.querySelectorAll(".nav-links a");
 const navToggle = document.querySelector(".nav-toggle");
 const navLinksList = document.querySelector(".nav-links");
 const navOverlay = document.querySelector('.nav-overlay');
+const navClose = document.querySelector('.nav-close');
 
 if (navToggle && navLinksList) {
   navToggle.setAttribute('aria-expanded', 'false');
@@ -60,6 +61,15 @@ if (navToggle && navLinksList) {
     }
     navToggle.classList.toggle('open', isOpen);
     navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    // prevent body scroll when drawer is open
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) {
+      // move focus to first link for accessibility
+      const firstLink = navLinksList.querySelector('a');
+      if (firstLink) firstLink.focus();
+    } else {
+      navToggle.focus();
+    }
   });
 
   // Close menu when clicking a link
@@ -87,6 +97,23 @@ if (navToggle && navLinksList) {
         icon.classList.remove('fa-times');
       }
       navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  }
+
+  // Close button inside drawer
+  if (navClose) {
+    navClose.addEventListener('click', () => {
+      navLinksList.classList.remove('open');
+      navToggle.classList.remove('open');
+      const icon = navToggle.querySelector('i');
+      if (icon) {
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      }
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      navToggle.focus();
     });
   }
 }
